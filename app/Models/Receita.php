@@ -11,6 +11,7 @@ class Receita extends Model
     use HasFactory;
 
     public const STATUS_ATIVO = 'ATIVO';
+
     public const STATUS_INATIVO = 'INATIVO';
 
     protected $table = 'receita';

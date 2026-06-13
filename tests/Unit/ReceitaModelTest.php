@@ -21,7 +21,7 @@ class ReceitaModelTest extends TestCase
 
     public function test_fillable_contains_status_field(): void
     {
-        $receita = new Receita();
+        $receita = new Receita;
 
         $this->assertContains('status', $receita->getFillable());
     }
@@ -110,10 +110,10 @@ class ReceitaModelTest extends TestCase
         $result = Receita::query()
             ->whereIn('nome', ['Filtro vazio A', 'Filtro vazio B'])
             ->filter([
-            'data_inicial' => null,
-            'data_final' => '',
-            'status' => null,
-        ])->count();
+                'data_inicial' => null,
+                'data_final' => '',
+                'status' => null,
+            ])->count();
 
         $this->assertSame(2, $result);
     }

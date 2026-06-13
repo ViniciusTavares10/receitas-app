@@ -12,8 +12,8 @@ class ReceitaPdfExporter
     {
         $lines = [
             'Relatorio de Receitas',
-            'Gerado em: ' . now()->format('d/m/Y H:i'),
-            'Filtros: ' . $this->formatFilters($filters),
+            'Gerado em: '.now()->format('d/m/Y H:i'),
+            'Filtros: '.$this->formatFilters($filters),
             str_repeat('-', 90),
         ];
 
@@ -42,15 +42,15 @@ class ReceitaPdfExporter
         $parts = [];
 
         if (filled($filters['data_inicial'] ?? null)) {
-            $parts[] = 'Data inicial: ' . date('d/m/Y', strtotime($filters['data_inicial']));
+            $parts[] = 'Data inicial: '.date('d/m/Y', strtotime($filters['data_inicial']));
         }
 
         if (filled($filters['data_final'] ?? null)) {
-            $parts[] = 'Data final: ' . date('d/m/Y', strtotime($filters['data_final']));
+            $parts[] = 'Data final: '.date('d/m/Y', strtotime($filters['data_final']));
         }
 
         if (filled($filters['status'] ?? null)) {
-            $parts[] = 'Status: ' . Str::headline($filters['status']);
+            $parts[] = 'Status: '.Str::headline($filters['status']);
         }
 
         return $parts === [] ? 'Sem filtros' : implode(' | ', $parts);
@@ -77,10 +77,10 @@ class ReceitaPdfExporter
         $kids = [];
         foreach (range(0, $pageCount - 1) as $index) {
             $pageObjectId = 3 + ($index * 2);
-            $kids[] = $pageObjectId . ' 0 R';
+            $kids[] = $pageObjectId.' 0 R';
         }
 
-        $objects[2] = '<< /Type /Pages /Kids [' . implode(' ', $kids) . '] /Count ' . $pageCount . ' >>';
+        $objects[2] = '<< /Type /Pages /Kids ['.implode(' ', $kids).'] /Count '.$pageCount.' >>';
 
         foreach ($pages as $index => $pageLines) {
             $pageObjectId = 3 + ($index * 2);
@@ -92,14 +92,14 @@ class ReceitaPdfExporter
                 '14 TL',
                 '1 0 0 1 40 800 Tm',
                 ...array_map(
-                    fn (string $line) => '(' . $this->escapePdfString($line) . ') Tj T*',
+                    fn (string $line) => '('.$this->escapePdfString($line).') Tj T*',
                     $pageLines
                 ),
                 'ET',
             ]);
 
-            $objects[$pageObjectId] = '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 ' . $fontObjectId . ' 0 R >> >> /Contents ' . $contentObjectId . ' 0 R >>';
-            $objects[$contentObjectId] = '<< /Length ' . strlen($content) . " >>\nstream\n" . $content . "\nendstream";
+            $objects[$pageObjectId] = '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 '.$fontObjectId.' 0 R >> >> /Contents '.$contentObjectId.' 0 R >>';
+            $objects[$contentObjectId] = '<< /Length '.strlen($content)." >>\nstream\n".$content."\nendstream";
         }
 
         $objects[$fontObjectId] = '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>';
@@ -111,12 +111,12 @@ class ReceitaPdfExporter
 
         foreach ($objects as $id => $body) {
             $offsets[$id] = strlen($pdf);
-            $pdf .= $id . " 0 obj\n" . $body . "\nendobj\n";
+            $pdf .= $id." 0 obj\n".$body."\nendobj\n";
         }
 
         $xrefPosition = strlen($pdf);
         $pdf .= "xref\n";
-        $pdf .= '0 ' . (count($objects) + 1) . "\n";
+        $pdf .= '0 '.(count($objects) + 1)."\n";
         $pdf .= "0000000000 65535 f \n";
 
         foreach (array_keys($objects) as $id) {
@@ -124,10 +124,10 @@ class ReceitaPdfExporter
         }
 
         $pdf .= "trailer\n";
-        $pdf .= '<< /Size ' . (count($objects) + 1) . " /Root 1 0 R >>\n";
+        $pdf .= '<< /Size '.(count($objects) + 1)." /Root 1 0 R >>\n";
         $pdf .= "startxref\n";
-        $pdf .= $xrefPosition . "\n";
-        $pdf .= "%%EOF";
+        $pdf .= $xrefPosition."\n";
+        $pdf .= '%%EOF';
 
         return $pdf;
     }

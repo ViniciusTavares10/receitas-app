@@ -1,0 +1,8 @@
+.git
+.github
+coverage-report
+docker/**/.env*
+node_modules
+npm-debug.log
+storage/logs/*.log
+vendor

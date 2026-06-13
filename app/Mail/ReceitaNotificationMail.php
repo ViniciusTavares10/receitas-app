@@ -17,13 +17,12 @@ class ReceitaNotificationMail extends Mailable
     public function __construct(
         public Receita $receita,
         public string $action,
-    ) {
-    }
+    ) {}
 
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Receita ' . $this->actionLabel() . ': ' . $this->receita->nome,
+            subject: 'Receita '.$this->actionLabel().': '.$this->receita->nome,
         );
     }
 

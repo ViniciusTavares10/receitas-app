@@ -1,12 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ReceitaController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ReceitaController;
+use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('login');
-});
+Route::view('/', 'login');
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/cadastro', [AuthController::class, 'register'])->name('auth.register');
