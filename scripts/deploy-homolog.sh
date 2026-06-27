@@ -12,8 +12,11 @@ git pull origin "$BRANCH"
 cd docker/homolog
 docker compose up -d --build
 docker compose exec app-homolog composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+docker compose exec app-homolog composer dump-autoload --no-dev --optimize
 docker compose exec app-homolog php artisan migrate --force
-docker compose exec app-homolog php artisan config:cache
+docker compose exec app-homolog php artisan config:clear
+docker compose exec app-homolog php artisan route:clear
+docker compose exec app-homolog php artisan view:clear
 docker compose exec app-homolog php artisan route:cache
 docker compose exec app-homolog php artisan view:cache
 

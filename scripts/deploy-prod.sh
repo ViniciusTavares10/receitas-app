@@ -12,8 +12,11 @@ git pull origin "$BRANCH"
 cd docker/prod
 docker compose up -d --build
 docker compose exec app-prod composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+docker compose exec app-prod composer dump-autoload --no-dev --optimize
 docker compose exec app-prod php artisan migrate --force
-docker compose exec app-prod php artisan config:cache
+docker compose exec app-prod php artisan config:clear
+docker compose exec app-prod php artisan route:clear
+docker compose exec app-prod php artisan view:clear
 docker compose exec app-prod php artisan route:cache
 docker compose exec app-prod php artisan view:cache
 

@@ -14,7 +14,7 @@ GitHub Issues/Projects
                  - app-homolog PHP 8.3 FPM + Laravel
                  - db-homolog PostgreSQL 15
             -> Producao
-                 - nginx-prod :80
+                 - nginx-prod :8081
                  - app-prod PHP 8.3 FPM + Laravel
                  - db-prod PostgreSQL 15
 ```
@@ -35,7 +35,7 @@ GitHub Issues/Projects
 Homologacao fica exposta em `http://IP-VM:8080` e usa os containers
 `app-homolog`, `nginx-homolog` e `db-homolog`.
 
-Producao fica exposta em `http://IP-VM:80` e usa os containers
+Producao fica exposta em `http://IP-VM:8081` e usa os containers
 `app-prod`, `nginx-prod` e `db-prod`.
 
 As senhas e chaves dos arquivos `docker/**/.env.*` sao valores de exemplo para
