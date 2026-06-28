@@ -138,9 +138,10 @@ checkout_project() {
 }
 
 prepare_permissions() {
-    log "Preparando permissoes de storage/cache"
-    mkdir -p "$PROJECT_DIR/storage/framework/cache" "$PROJECT_DIR/storage/framework/sessions" "$PROJECT_DIR/storage/framework/views" "$PROJECT_DIR/bootstrap/cache"
-    sudo_cmd chmod -R ug+rwX "$PROJECT_DIR/storage" "$PROJECT_DIR/bootstrap/cache"
+    log "Preparando permissoes de storage/cache/vendor"
+    mkdir -p "$PROJECT_DIR/storage/framework/cache" "$PROJECT_DIR/storage/framework/sessions" "$PROJECT_DIR/storage/framework/views" "$PROJECT_DIR/bootstrap/cache" "$PROJECT_DIR/vendor"
+    sudo_cmd chmod -R 777 "$PROJECT_DIR/storage" "$PROJECT_DIR/bootstrap/cache" "$PROJECT_DIR/vendor"
+    sudo_cmd chown -R www-data:www-data "$PROJECT_DIR/storage" "$PROJECT_DIR/bootstrap/cache" "$PROJECT_DIR/vendor"
 }
 
 start_environment() {
