@@ -154,7 +154,7 @@ start_environment() {
     compose_cmd up -d --build
 
     log "Instalando dependencias PHP no container $app_service"
-    compose_cmd exec -T "$app_service" composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader --no-parallel
+    compose_cmd exec -T -e COMPOSER_MAX_PARALLEL_HTTP=1 "$app_service" composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
     compose_cmd exec -T "$app_service" composer dump-autoload --no-dev --optimize
 
     if [ "$RUN_MIGRATIONS" = "true" ]; then
