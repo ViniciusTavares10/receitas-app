@@ -3,11 +3,11 @@ services:
     build:
       context: ../../
       dockerfile: Dockerfile
+      target: app
     container_name: app-homolog
     env_file:
       - .env.homolog
     volumes:
-      - ../../:/var/www/html
       - vendor-homolog:/var/www/html/vendor
     depends_on:
       db-homolog:
@@ -16,12 +16,14 @@ services:
       - homolog-net
 
   nginx-homolog:
-    image: nginx:1.27-alpine
+    build:
+      context: ../../
+      dockerfile: Dockerfile
+      target: nginx
     container_name: nginx-homolog
     ports:
       - "8080:80"
     volumes:
-      - ../../:/var/www/html:ro
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
     depends_on:
       - app-homolog

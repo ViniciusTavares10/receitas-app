@@ -1,4 +1,4 @@
-FROM php:8.3-fpm
+FROM php:8.3-fpm AS app
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -28,3 +28,7 @@ EXPOSE 9000
 
 ENTRYPOINT ["receitas-entrypoint"]
 CMD ["php-fpm"]
+
+FROM nginx:1.27-alpine AS nginx
+
+COPY --from=app /var/www/html/public /var/www/html/public
