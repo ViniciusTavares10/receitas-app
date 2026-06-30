@@ -23,10 +23,10 @@ return new class extends Migration
         });
 
         DB::table('usuario')->insert([
-            'nome'     => 'teste',
-            'email'    => 'teste@gmail.com',
-            'login'    => 'teste',
-            'senha'    => bcrypt('123'),
+            'nome' => 'teste',
+            'email' => 'teste@gmail.com',
+            'login' => 'teste',
+            'senha' => bcrypt('123'),
             'situacao' => true,
         ]);
     }
