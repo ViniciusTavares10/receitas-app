@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - develop
   pull_request:
     branches:
       - main
@@ -99,3 +98,35 @@ jobs:
 
       - name: PHPStan
         run: ./vendor/bin/phpstan analyse --no-progress
+
+  deploy-homolog:
+    name: Deploy Homologacao
+    runs-on: ubuntu-latest
+    needs: qualidade
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Deploy via SSH na VM (Homologacao)
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USER }}
+          key: ${{ secrets.VM_SSH_KEY }}
+          script: |
+            sudo bash /root/receitas-app/scripts/deploy-homolog.sh
+
+  deploy-prod:
+    name: Deploy Producao
+    runs-on: ubuntu-latest
+    needs: deploy-homolog
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Deploy via SSH na VM (Producao)
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USER }}
+          key: ${{ secrets.VM_SSH_KEY }}
+          script: |
+            sudo bash /root/receitas-app/scripts/deploy-prod.sh
