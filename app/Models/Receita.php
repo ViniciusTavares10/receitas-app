@@ -35,7 +35,7 @@ class Receita extends Model
         ];
     }
 
-    public static function statusOptions(): array     
+    public static function statusOptions(): array
     {
         return [
             self::STATUS_ATIVO => 'ATIVO',
