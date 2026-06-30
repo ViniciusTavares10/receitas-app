@@ -8,6 +8,7 @@ services:
       - .env.prod
     volumes:
       - ../../:/var/www/html
+      - vendor-prod:/var/www/html/vendor
     depends_on:
       db-prod:
         condition: service_healthy
@@ -46,6 +47,7 @@ services:
 
 volumes:
   db-prod-data:
+  vendor-prod:
 
 networks:
   prod-net:

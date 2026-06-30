@@ -8,6 +8,7 @@ services:
       - .env.homolog
     volumes:
       - ../../:/var/www/html
+      - vendor-homolog:/var/www/html/vendor
     depends_on:
       db-homolog:
         condition: service_healthy
@@ -46,6 +47,7 @@ services:
 
 volumes:
   db-homolog-data:
+  vendor-homolog:
 
 networks:
   homolog-net:

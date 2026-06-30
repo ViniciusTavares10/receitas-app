@@ -11,7 +11,6 @@ git pull origin "$BRANCH"
 
 cd docker/homolog
 docker compose up -d --build
-docker compose exec -T -e COMPOSER_MAX_PARALLEL_HTTP=1 app-homolog composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
 docker compose exec app-homolog composer dump-autoload --no-dev --optimize
 docker compose exec app-homolog php artisan migrate --force
 docker compose exec app-homolog php artisan config:clear

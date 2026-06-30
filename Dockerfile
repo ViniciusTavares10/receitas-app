@@ -15,7 +15,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 
 COPY composer.json composer.lock ./
-RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader --no-scripts
+RUN COMPOSER_MEMORY_LIMIT=-1 COMPOSER_MAX_PARALLEL_HTTP=1 composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader --no-scripts
 
 COPY . .
 COPY docker/entrypoint.sh /usr/local/bin/receitas-entrypoint
