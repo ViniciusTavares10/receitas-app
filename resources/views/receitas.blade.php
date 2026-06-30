@@ -5,7 +5,7 @@
 </head>
 <body>
 
-<h1>Lista de Receita</h1>
+<h1>Lista de Receitazz</h1>
 
 @if(session('success'))
     <p style="color:green;">{{ session('success') }}</p>
