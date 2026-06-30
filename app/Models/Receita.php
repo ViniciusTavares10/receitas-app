@@ -10,7 +10,7 @@ class Receita extends Model
 {
     use HasFactory;
 
-    public const STATUS_ATIVO = 'ATIVOa';
+    public const STATUS_ATIVO = 'ATIVO';
 
     public const STATUS_INATIVO = 'INATIVO';
 
@@ -35,8 +35,9 @@ class Receita extends Model
         ];
     }
 
-    public static function statusOptions(): array     {
-    return [
+    public static function statusOptions(): array     
+    {
+        return [
             self::STATUS_ATIVO => 'ATIVO',
             self::STATUS_INATIVO => 'INATIVO',
         ];
