@@ -60,3 +60,4 @@ class Receita extends Model
             );
     }
 }
+    
