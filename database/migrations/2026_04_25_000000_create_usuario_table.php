@@ -26,7 +26,7 @@ return new class extends Migration
             'nome' => 'teste',
             'email' => 'teste@gmail.com',
             'login' => 'teste',
-            'senha' => bcrypt('123'),
+            'senha' => '123',
             'situacao' => true,
         ]);
     }
